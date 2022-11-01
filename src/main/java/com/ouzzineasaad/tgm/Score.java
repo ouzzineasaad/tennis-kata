@@ -14,6 +14,9 @@ public class Score {
 	// init point sequence score to 0 - 0
 	private static Integer[] pntSeqScore = new Integer[] {0, 0};
 	
+	// init point sequence score to 0 - 0
+	private static Integer[] setScore = new Integer[] {0, 0};
+	
 	private static final String[] possibleScores = new String[]{"0", "15", "30", "40", "ADVANTAGE", "WIN"};
 
 	
@@ -25,7 +28,9 @@ public class Score {
 	public static String getScore() {
 		for (int i = 0; i < 2; i++) {
 			if ("WIN".equals(possibleScores[pntSeqScore[i]])) {
-				return "Le joueur " + (i+1) + " a gagné la partie";
+				setScore[i] = setScore[i] + 1;
+				resetGameScore();
+				return "Le joueur " + (i+1) + " a gagné le Set";
 			} else if (pntSeqScore[i] == 4) {
 				return "Avantage pour le joueur " + (i+1);
 			}
@@ -35,6 +40,22 @@ public class Score {
 		} else {			
 			return possibleScores[pntSeqScore[0]] + " - " + possibleScores[pntSeqScore[1]];
 		}
+    }
+	
+	/**
+	 * Get the current Set score
+	 * 
+	 * @return String score : exemple 4 - 6
+	 */
+	public static String getSetScore() {
+		for (int i = 0; i < 2; i++) {
+			int opponent = i == 1 ? 0 : 1;
+			if (setScore[i] == 7 || 6 == setScore[i] && (setScore[i] - setScore[opponent]) > 1) {
+				return setScore[0] + " - " + setScore[1] + "\n"
+						+ "Le joueur " + (i+1) + " a gagné la partie";
+			}
+		}		
+		return setScore[0] + " - " + setScore[1];
     }
 	
 
@@ -78,6 +99,21 @@ public class Score {
 	 * @return boolean
 	 */
 	public static boolean isThereAWinner() {
-		return "WIN".equals(possibleScores[pntSeqScore[0]]) || "WIN".equals(possibleScores[pntSeqScore[1]]);
+		for (int i = 0; i < 2; i++) {
+			int opponent = i == 1 ? 0 : 1;
+			if (setScore[i] == 7 || setScore[i] == 6 && setScore[i] - setScore[opponent] > 1) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Rest Game score after win an Set
+	 */
+	private static void resetGameScore() {
+		for (int i = 0; i < 2; i++) {
+			pntSeqScore[i] = 0;
+		}
 	}
 }

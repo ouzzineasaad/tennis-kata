@@ -26,7 +26,8 @@ public class Game {
 					System.out.println("Seules les valeurs 1 ou 2 sont accepté");
 				} else {
 					Score.update(player);
-					System.out.println("Score: " + Score.getScore());
+					System.out.println("Game Score: " + Score.getScore());
+					System.out.println("Set Score: " + Score.getSetScore());
 				}
 			} while (!isEnded());
 		}
@@ -35,9 +36,10 @@ public class Game {
 	
 	/**
 	 * Check if the game is ended
+	 *
 	 * @return boolean : true if the game is ended, false otherwise 
 	 */
-	private boolean isEnded() {
+	public boolean isEnded() { // Methode set to public for Unit Test
 		return Score.isThereAWinner();
 	}
 

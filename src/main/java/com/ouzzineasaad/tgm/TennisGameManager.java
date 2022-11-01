@@ -3,6 +3,8 @@ package main.java.com.ouzzineasaad.tgm;
 import java.util.Scanner;
 
 public class TennisGameManager {
+	
+	private static Game game = new Game();
 
     public static void main (String[] args){
     	
@@ -12,7 +14,6 @@ public class TennisGameManager {
         System.out.println("");
         try (Scanner scan = new Scanner(System.in)) {
         	scan.nextLine();
-        	Game game = new Game();
         	game.start();
         }
 
