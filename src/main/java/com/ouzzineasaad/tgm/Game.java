@@ -26,7 +26,11 @@ public class Game {
 					System.out.println("Seules les valeurs 1 ou 2 sont accepté");
 				} else {
 					Score.update(player);
-					System.out.println("Game Score: " + Score.getScore());
+					if (Score.isTieBreak()) {
+						System.out.println("Tie Break Score: " + Score.getTieBreakScore());
+					} else {						
+						System.out.println("Game Score: " + Score.getScore());
+					}
 					System.out.println("Set Score: " + Score.getSetScore());
 				}
 			} while (!isEnded());
