@@ -12,6 +12,8 @@ Le projet kata tennis surnomé le TGM "Tennis Game Manager" est une application 
 
 - Tapez la commande suivante : java -jar tennis-kata-1.0.0.jar
 
+En suite laissez vous guider et rentrez vos scores.
+
 ## Description du repo :
 
 - J'ai pushé l'avancement sur les branches feature/sprintX_usY correspondantes aux Sprint X et Us Y de l'énoncé (exemple : feature/sprint1-us1).
