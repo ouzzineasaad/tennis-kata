@@ -11,10 +11,10 @@ import org.mockito.internal.util.reflection.FieldSetter;
 import main.java.com.ouzzineasaad.tgm.Score;
 
 public class ScoreTest {
-	
+
 	@InjectMocks
 	private Score score;
-	
+
 	@Test
 	void updateTest() throws NoSuchFieldException, SecurityException {
 		assertEquals(Score.getScore(), "0 - 0");
@@ -31,10 +31,10 @@ public class ScoreTest {
 		Score.update(2);
 		assertEquals(Score.getScore(), "Le joueur 2 a gagné le Set");
 	}
-	
+
 	@Test
 	void isThereAWinnerTest() throws NoSuchFieldException, SecurityException {
-		Integer[] setScore = new Integer[] {0, 0};
+		Integer[] setScore = new Integer[] { 0, 0 };
 		FieldSetter fieldSetter = new FieldSetter(score, Score.class.getDeclaredField("setScore"));
 		fieldSetter.set(setScore);
 		assertEquals(Score.getScore(), "0 - 0");
@@ -44,21 +44,21 @@ public class ScoreTest {
 		fieldSetter.set(setScore);
 		assertEquals(Score.isThereAWinner(), true);
 	}
-	
+
 	@Test
 	void getSetScoreTest() throws NoSuchFieldException, SecurityException {
-		Integer[] setScore1 = new Integer[] {3, 1};
-	    new FieldSetter(score, Score.class.getDeclaredField("setScore")).set(setScore1);
+		Integer[] setScore1 = new Integer[] { 3, 1 };
+		new FieldSetter(score, Score.class.getDeclaredField("setScore")).set(setScore1);
 		assertEquals("3 - 1", Score.getSetScore());
-		
-		Integer[] setScore2 = new Integer[] {6, 1};
-	    new FieldSetter(score, Score.class.getDeclaredField("setScore")).set(setScore2);
+
+		Integer[] setScore2 = new Integer[] { 6, 1 };
+		new FieldSetter(score, Score.class.getDeclaredField("setScore")).set(setScore2);
 		assertEquals("6 - 1" + "\n" + "Le joueur 1 a gagné la partie", Score.getSetScore());
 	}
-	
+
 	@Test
 	void isTieBreakTest() throws NoSuchFieldException, SecurityException {
-		Integer[] setScore = new Integer[] {0, 0};
+		Integer[] setScore = new Integer[] { 0, 0 };
 		FieldSetter fieldSetter = new FieldSetter(score, Score.class.getDeclaredField("setScore"));
 		fieldSetter.set(setScore);
 		assertEquals(Score.getScore(), "0 - 0");
@@ -69,27 +69,26 @@ public class ScoreTest {
 		fieldSetter.set(setScore);
 		assertEquals(Score.isTieBreak(), true);
 	}
-	
+
 	@Test
 	void getTieBreakScoreTest() throws NoSuchFieldException, SecurityException {
-		Integer[] tieBreakScore1 = new Integer[] {3, 1};
-	    new FieldSetter(score, Score.class.getDeclaredField("tieBreakScore")).set(tieBreakScore1);
+		Integer[] tieBreakScore1 = new Integer[] { 3, 1 };
+		new FieldSetter(score, Score.class.getDeclaredField("tieBreakScore")).set(tieBreakScore1);
 		assertEquals(Score.getTieBreakScore(), "3 - 1");
-		
-		Integer[] tieBreakScore2 = new Integer[] {7, 1};
-	    new FieldSetter(score, Score.class.getDeclaredField("tieBreakScore")).set(tieBreakScore2);
+
+		Integer[] tieBreakScore2 = new Integer[] { 7, 1 };
+		new FieldSetter(score, Score.class.getDeclaredField("tieBreakScore")).set(tieBreakScore2);
 		assertEquals(Score.getTieBreakScore(), "7 - 1");
 	}
-	
-	
+
 	@BeforeEach
-	public void setup() throws Exception {	    
-	    MockitoAnnotations.initMocks(this);
-	    
-	    Integer[] pntSeqScore = new Integer[] {0, 0};
+	public void setup() throws Exception {
+		MockitoAnnotations.initMocks(this);
+
+		Integer[] pntSeqScore = new Integer[] { 0, 0 };
 		new FieldSetter(score, Score.class.getDeclaredField("pntSeqScore")).set(pntSeqScore);
-		
-		Boolean[] winTieBreak = new Boolean[] {false, false};
-	    new FieldSetter(score, Score.class.getDeclaredField("winTieBreak")).set(winTieBreak);
+
+		Boolean[] winTieBreak = new Boolean[] { false, false };
+		new FieldSetter(score, Score.class.getDeclaredField("winTieBreak")).set(winTieBreak);
 	}
 }

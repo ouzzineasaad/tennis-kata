@@ -5,15 +5,15 @@ import java.util.Scanner;
 /**
  * @author ouzzi
  * 
- * Tennis Game
+ *         Tennis Game
  *
  */
 public class Game {
-	
+
 	private int player;
-	
+
 	/**
-	 * Start a new tennis game 
+	 * Start a new tennis game
 	 */
 	public void start() {
 		try (Scanner scan = new Scanner(System.in)) {
@@ -28,20 +28,19 @@ public class Game {
 					Score.update(player);
 					if (Score.isTieBreak()) {
 						System.out.println("Tie Break Score: " + Score.getTieBreakScore());
-					} else {						
+					} else {
 						System.out.println("Game Score: " + Score.getScore());
 					}
 					System.out.println("Set Score: " + Score.getSetScore());
 				}
 			} while (!isEnded());
 		}
-    }
-	
-	
+	}
+
 	/**
 	 * Check if the game is ended
 	 *
-	 * @return boolean : true if the game is ended, false otherwise 
+	 * @return boolean : true if the game is ended, false otherwise
 	 */
 	public boolean isEnded() { // Methode set to public for Unit Test
 		return Score.isThereAWinner();

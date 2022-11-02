@@ -7,22 +7,22 @@ import java.util.stream.Collectors;
 /**
  * @author ouzzi
  * 
- * Score calculate methods
+ *         Score calculate methods
  */
 public class Score {
-	
-	// init point sequence score to 0 - 0
-	private static Integer[] pntSeqScore = new Integer[] {0, 0};
-	
-	// init point sequence score to 0 - 0
-	private static Integer[] setScore = new Integer[] {0, 0};
-	
-	private static final String[] possibleScores = new String[]{"0", "15", "30", "40", "ADVANTAGE", "WIN"};
 
-	private static Integer[] tieBreakScore = new Integer[] {0, 0};
-	
-	private static Boolean[] winTieBreak = new Boolean[] {false, false};
-	
+	// init point sequence score to 0 - 0
+	private static Integer[] pntSeqScore = new Integer[] { 0, 0 };
+
+	// init point sequence score to 0 - 0
+	private static Integer[] setScore = new Integer[] { 0, 0 };
+
+	private static final String[] possibleScores = new String[] { "0", "15", "30", "40", "ADVANTAGE", "WIN" };
+
+	private static Integer[] tieBreakScore = new Integer[] { 0, 0 };
+
+	private static Boolean[] winTieBreak = new Boolean[] { false, false };
+
 	/**
 	 * Get the current score
 	 * 
@@ -33,22 +33,22 @@ public class Score {
 			if ("WIN".equals(possibleScores[pntSeqScore[i]])) {
 				setScore[i] = setScore[i] + 1;
 				resetGameScore();
-				String scoreMessage = "Le joueur " + (i+1) + " a gagné le Set";
+				String scoreMessage = "Le joueur " + (i + 1) + " a gagné le Set";
 				if (isTieBreak()) {
 					scoreMessage += ".\nDébut du Tie Break";
 				}
 				return scoreMessage;
 			} else if (pntSeqScore[i] == 4) {
-				return "Avantage pour le joueur " + (i+1);
+				return "Avantage pour le joueur " + (i + 1);
 			}
 		}
-		if (pntSeqScore[0] == pntSeqScore[1] && pntSeqScore[0] == 3){
+		if (pntSeqScore[0] == pntSeqScore[1] && pntSeqScore[0] == 3) {
 			return "DEUCE 40 - 40";
-		} else {			
+		} else {
 			return possibleScores[pntSeqScore[0]] + " - " + possibleScores[pntSeqScore[1]];
 		}
-    }
-	
+	}
+
 	/**
 	 * Get the current Set score
 	 * 
@@ -58,37 +58,35 @@ public class Score {
 		for (int i = 0; i < 2; i++) {
 			int opponent = i == 1 ? 0 : 1;
 			if (winTieBreak[i] || 6 == setScore[i] && (setScore[i] - setScore[opponent]) > 1) {
-				return setScore[0] + " - " + setScore[1] + "\n"
-						+ "Le joueur " + (i+1) + " a gagné la partie";
+				return setScore[0] + " - " + setScore[1] + "\n" + "Le joueur " + (i + 1) + " a gagné la partie";
 			}
-		}		
+		}
 		return setScore[0] + " - " + setScore[1];
-    }
-	
+	}
 
 	/**
 	 * Update player score
 	 * 
 	 * @param player: 1 or 2 corresponding to the player who scored the point
 	 */
-	public static void update (int player) {
+	public static void update(int player) {
 		if (isTieBreak()) {
 			tieBreakScore[player - 1] = tieBreakScore[player - 1] + 1;
 		} else if (pntSeqScore[player - 1] > 2) {
 			updateReached40(player);
-		} else {			
+		} else {
 			pntSeqScore[player - 1] = pntSeqScore[player - 1] + 1;
 		}
 	}
-	
-	
+
 	/**
 	 * Score reached 40 operations
+	 * 
 	 * @param player win the point
 	 */
 	private static void updateReached40(int player) {
 		int opponent = player == 1 ? 2 : 1;
-		
+
 		Set<Integer> distinct = Arrays.stream(pntSeqScore).collect(Collectors.toSet());
 		if (distinct.size() == 1) { // DEUCE => ADVANTAGE
 			pntSeqScore[player - 1] = pntSeqScore[player - 1] + 1;
@@ -100,7 +98,6 @@ public class Score {
 			pntSeqScore[player - 1] = pntSeqScore[player - 1] + 2;
 		}
 	}
-
 
 	/**
 	 * Check if there is a winner
@@ -116,7 +113,7 @@ public class Score {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Rest Game score after win an Set
 	 */
@@ -125,7 +122,7 @@ public class Score {
 			pntSeqScore[i] = 0;
 		}
 	}
-	
+
 	/**
 	 * Get the current Tie Break score
 	 * 
@@ -138,10 +135,10 @@ public class Score {
 				setScore[i] = setScore[i] + 1;
 				winTieBreak[i] = true;
 			}
-		}		
+		}
 		return tieBreakScore[0] + " - " + tieBreakScore[1];
 	}
-	
+
 	/**
 	 * Check if Tie Break is activated
 	 * 

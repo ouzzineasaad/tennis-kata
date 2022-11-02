@@ -18,41 +18,41 @@ import main.java.com.ouzzineasaad.tgm.Game;
 import main.java.com.ouzzineasaad.tgm.TennisGameManager;
 
 public class TennisGameManagerTest {
-	
+
 	@Mock
 	private Game game;
-	
+
 	@InjectMocks
 	private TennisGameManager tennisGameManager;
-	
+
 	@Test
 	public void mainTest() {
-	    
-	    String userInput = String.format(System.lineSeparator());
-	    ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
-	    System.setIn(bais);
 
-	    String expected = "Touchez Entrer pour commencer une partie !";
-	    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-	    PrintStream printStream = new PrintStream(baos);
-	    System.setOut(printStream);
+		String userInput = String.format(System.lineSeparator());
+		ByteArrayInputStream bais = new ByteArrayInputStream(userInput.getBytes());
+		System.setIn(bais);
 
-	    TennisGameManager.main(null); // call the main method
+		String expected = "Touchez Entrer pour commencer une partie !";
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		PrintStream printStream = new PrintStream(baos);
+		System.setOut(printStream);
 
-	    String[] lines = baos.toString().split(System.lineSeparator());
-	    String actual = lines[lines.length-1];
-	    
-	    doNothing().when(game).start();
+		TennisGameManager.main(null); // call the main method
 
-	    // checkout output
-	    Assertions.assertEquals(expected,actual);
-	    
+		String[] lines = baos.toString().split(System.lineSeparator());
+		String actual = lines[lines.length - 1];
+
+		doNothing().when(game).start();
+
+		// checkout output
+		Assertions.assertEquals(expected, actual);
+
 	}
-	
+
 	@BeforeEach
-	public void setup() throws NoSuchFieldException, SecurityException {	    
-	    MockitoAnnotations.initMocks(this);
-	    FieldSetter fieldSetter = new FieldSetter(tennisGameManager, TennisGameManager.class.getDeclaredField("game"));
+	public void setup() throws NoSuchFieldException, SecurityException {
+		MockitoAnnotations.initMocks(this);
+		FieldSetter fieldSetter = new FieldSetter(tennisGameManager, TennisGameManager.class.getDeclaredField("game"));
 		fieldSetter.set(game);
 	}
 
